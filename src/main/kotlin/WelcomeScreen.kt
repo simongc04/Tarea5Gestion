@@ -1,5 +1,10 @@
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExitToApp
+import androidx.compose.material.icons.filled.List
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,102 +21,106 @@ class WelcomeScreen : Screen {
     override fun Content() {
         val navigator = LocalNavigator.current
 
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = { Text("Bienvenido") },
-                    backgroundColor = MaterialTheme.colors.primary,
-                    contentColor = Color.White
-                )
-            }
-        ) { paddingValues ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFF1976D2))
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(paddingValues)
-                    .padding(16.dp)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                // Sección del rol del usuario (arriba a la izquierda)
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Start
-                ) {
-                    Text(
-                        text = "Rol: Gestor",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colors.primary
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Sección de saludo
                 Text(
-                    text = "Hola, Usuario",
-                    fontSize = 20.sp,
+                    text = "Bienvenido, Usuario",
+                    fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 16.dp)
+                    color = Color.White
                 )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Text(
+                    text = "Rol: Gestor",
+                    fontSize = 18.sp,
+                    color = Color.White
+                )
+
+                Spacer(modifier = Modifier.height(40.dp))
+
+                Button(
+                    onClick = {
+                        navigator?.push(ProyectosScreen())
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color.White,
+                        contentColor = Color(0xFF1976D2)
+                    )
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.List,
+                        contentDescription = "Proyectos Activos",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Ver Proyectos Activos", fontSize = 16.sp)
+                }
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                // Sección de proyectos activos
-                Text(
-                    text = "Proyectos Activos",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-                Button(
-                    onClick = {
-                        // Navegar a la pantalla de proyectos activos
-                        // navigator?.push(ActiveProjectsScreen())
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                ) {
-                    Text(text = "Ver Proyectos Activos")
-                }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Sección de historial de proyectos terminados
-                Text(
-                    text = "Historial de Proyectos",
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
                 Button(
                     onClick = {
                         // Navegar a la pantalla de historial de proyectos
-                        // navigator?.push(ProjectHistoryScreen())
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp)
+                        .height(50.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color.White,
+                        contentColor = Color(0xFF1976D2)
+                    )
                 ) {
-                    Text(text = "Ver Historial de Proyectos Terminados")
+
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Historial de Proyectos", fontSize = 16.sp)
                 }
 
-                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(40.dp))
 
-                // Botón para desconectar
                 Button(
                     onClick = {
-                        // Navegar a la pantalla de login o cerrar sesión
-                        // navigator?.push(LoginScreen())
+                        navigator?.pop()
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp),
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
+                        .height(50.dp),
+                    shape = RoundedCornerShape(8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = Color.Red,
+                        contentColor = Color.White
+                    )
                 ) {
-                    Text(text = "Desconectar", color = Color.White)
+                    Icon(
+                        imageVector = Icons.Default.ExitToApp,
+                        contentDescription = "Desconectar",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text("Desconectar", fontSize = 16.sp)
                 }
             }
         }
     }
+}
+
+@Composable
+fun WelcomeScreenPreview() {
+    WelcomeScreen().Content()
 }
