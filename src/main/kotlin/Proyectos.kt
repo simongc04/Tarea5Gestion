@@ -127,4 +127,3 @@ data class Proyecto(
 fun ProyectosScreenPreview() {
     ProyectosScreen().Content()
 }
-
