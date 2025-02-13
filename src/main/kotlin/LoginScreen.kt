@@ -18,6 +18,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import kotlinx.coroutines.Dispatchers
+import model.*;
+import network.apiLogIn
 
 class LoginScreen : Screen {
 
@@ -25,9 +28,7 @@ class LoginScreen : Screen {
     override fun Content() {
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
-
         val navigator = LocalNavigator.current
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -119,7 +120,10 @@ class LoginScreen : Screen {
 
                         Button(
                             onClick = {
-                                navigator?.push(WelcomeScreen())
+                                // llamarlo con corutina
+                                apiLogIn(email, password) {
+                                    navigator?.push(WelcomeScreen(it))
+                                }
                             },
                             modifier = Modifier
                                 .fillMaxWidth()

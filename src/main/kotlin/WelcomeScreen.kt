@@ -14,8 +14,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
+import model.User
 
-class WelcomeScreen : Screen {
+class WelcomeScreen(val usuarioActual: User) : Screen {
 
     @Composable
     override fun Content() {
@@ -34,7 +35,7 @@ class WelcomeScreen : Screen {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Bienvenido, Usuario",
+                    text = "Bienvenido, a",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
@@ -118,9 +119,4 @@ class WelcomeScreen : Screen {
             }
         }
     }
-}
-
-@Composable
-fun WelcomeScreenPreview() {
-    WelcomeScreen().Content()
 }

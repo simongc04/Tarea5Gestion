@@ -6,13 +6,13 @@ import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-class NetworkUtils {
+object NetworkUtils {
     val httpClient = HttpClient {
         install(ContentNegotiation) {
             json(
                 json = Json { ignoreUnknownKeys = true },
-                contentType = ContentType.Any
-            )
+                contentType = ContentType.Any)
         }
     }
 }
+
